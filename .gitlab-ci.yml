@@ -1,0 +1,25 @@
+build:
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_IMAGE: cookielab/alpine
+    DOCKER_IMAGE_VERSION_REVISION: $CI_COMMIT_TAG
+  before_script:
+    - docker login --username clbbot --password "$DOCKER_HUB_PASSWORD"
+  script:
+    - docker build --no-cache --pull -t $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_REVISION .
+    - export DOCKER_IMAGE_VERSION_PATCH=`echo -n $DOCKER_IMAGE_VERSION_REVISION | sed -n -E 's/([0-9]+)\.([0-9]+)\.([0-9]+)(-([0-9]+))?/\1.\2.\3/p'`
+    - docker tag $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_REVISION $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_PATCH
+    - export DOCKER_IMAGE_VERSION_MINOR=`echo -n $DOCKER_IMAGE_VERSION_REVISION | sed -n -E 's/([0-9]+)\.([0-9]+)\.([0-9]+)(-([0-9]+))?/\1.\2/p'`
+    - docker tag $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_REVISION $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_MINOR
+    - echo "Pushing $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_REVISION"
+    - docker push $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_REVISION
+    - echo "Pushing $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_PATCH"
+    - docker push $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_PATCH
+    - echo "Pushing $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_MINOR"
+    - docker push $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_MINOR
+  tags:
+    - docker
+  only:
+    - tags
