@@ -1,4 +1,4 @@
-# Cookielab - Alpine Linux base image
+# Cookielab - Alpine Linux base image
 
 This image is based on [official Alpine Linux image](https://hub.docker.com/_/alpine?tab=description).
 
@@ -8,7 +8,7 @@ We install only SSL/TLS libs and CA certificates. Also creating `container` user
 
 There is no `latest` tag on this image.
 
-```Dockerfile
+```Docker
 FROM cookielab/alpine:3.10
 
 # ...
