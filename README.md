@@ -9,7 +9,7 @@ We install only SSL/TLS libs and CA certificates. Also creating `container` user
 There is no `latest` tag on this image.
 
 ```Docker
-FROM cookielab/alpine:3.10
+FROM cookielab/alpine:3.11
 
 # ...
 # your commands
