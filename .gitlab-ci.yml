@@ -20,7 +20,5 @@ build:
       --destination $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_PATCH \
       --destination $DOCKER_IMAGE:$DOCKER_IMAGE_VERSION_MINOR \
       --single-snapshot
-  tags:
-    - docker
   only:
     - tags
