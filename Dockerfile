@@ -1,12 +1,10 @@
-FROM alpine:3.15
+ARG ALPINE_VERSION
+FROM alpine:${ALPINE_VERSION}
 
-LABEL maintainer "patrik@votocek.cz"
+RUN adduser -D -h /container -s /bin/sh -u 1987 container
 
-RUN apk --update --no-cache upgrade
-RUN apk --update --no-cache add libressl openssl ca-certificates
-RUN adduser -D -G nobody -h /container -g container -s /bin/sh -u 1987 container
-
-WORKDIR /container
+# container user
 USER 1987
+WORKDIR /container
 
 ONBUILD USER root

@@ -1,21 +1,6 @@
-# Cookielab - Alpine Linux base image
+# cookielab/alpine
 
-This image is based on [official Alpine Linux image](https://hub.docker.com/_/alpine?tab=description).
+This container image is base image for all alpine variants of cookielab images.
 
-We install only SSL/TLS libs and CA certificates. Also creating `container` user (UID 1987) in group `nobody` with homedir set to `/container`.
-
-## Usage
-
-There is no `latest` tag on this image.
-
-```Docker
-FROM cookielab/alpine:3.11
-
-# ...
-# your commands
-# ...
-
-USER 1987
-
-ONBUILD USER root
-```
+On top of original alpine image it contains user `container` with _uid_ `1987`.
+And work dir is set to `/container` with is also home dir of `container` user.
