@@ -1,6 +1,7 @@
-FROM alpine:3.15
+FROM alpine:3.17
 
 LABEL maintainer "patrik@votocek.cz"
+LABEL maintainer "sodae@email.cz"
 
 RUN apk --update --no-cache upgrade
 RUN apk --update --no-cache add libressl openssl ca-certificates
