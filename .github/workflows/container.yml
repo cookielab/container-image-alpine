@@ -7,7 +7,7 @@ on:
       - '**'
 
 env:
-  alpine_version: '3.17'
+  alpine_version: '3.18'
 
 jobs:
   build:
